@@ -46,7 +46,10 @@ def main() -> None:
     if not w3.is_connected():
         print("❌ RPC connection failed. Check RPC_URL or --rpc parameter.")
         sys.exit(1)
-
+        
+ # Display current timestamp for audit logs
+    from datetime import datetime
+    print(f"🕒 Timestamp: {datetime.utcnow().isoformat()}Z")
     print("🔧 zk-storage-soundness")
     print(f"🔗 RPC: {args.rpc}")
     try:

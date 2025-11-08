@@ -46,6 +46,14 @@ def main() -> None:
     if not w3.is_connected():
         print("❌ RPC connection failed. Check RPC_URL or --rpc parameter.")
         sys.exit(1)
+            #New: Check RPC method support for eth_getProof
+    try:
+        methods = w3.provider.make_request("rpc_modules", [])["result"]
+        if "eth" not in methods or "getProof" not in methods["eth"]:
+            print("⚠️ Warning: This RPC endpoint may not support eth_getProof. Results could be incomplete.")
+    except Exception:
+        print("⚠️ Could not verify eth_getProof support — continuing anyway.")
+
 
     print("🔧 zk-storage-soundness")
     print(f"🔗 RPC: {args.rpc}")
